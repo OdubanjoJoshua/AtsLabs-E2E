@@ -1,6 +1,6 @@
 describe('Text for Contact Page', () => {
     beforeEach(() => {
-        cy.viewport(1440, 401);
+        cy.viewport(1440, 720);
         cy.visit('/contact');
     })
 
