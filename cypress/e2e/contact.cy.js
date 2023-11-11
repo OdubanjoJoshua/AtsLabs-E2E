@@ -1,47 +1,61 @@
 describe('Text for Contact Page', () => {
     beforeEach(() => {
-        cy.viewport(1440, 720);
+        cy.viewport(1440, 1080);
         cy.visit('/contact');
     })
 
-    it('Testing heading title and svg', () => {
-        cy.get('body > main:nth-child(3) > section:nth-child(1) > div:nth-child(1) > h1:nth-child(1)')
-        .should('have.text', 'Let’s create progress together');
-        cy.xpath("/html[1]/body[1]/main[1]/section[1]/div[2]/*[name()='svg'][1]")
+    it.only('Testing heading title and svg', () => {
+        // Check the header
+        cy.xpath("(//h1[contains(text(),'Let’s create progress together')])[1]")
+        .should('have.text', "Let’s create progress together");
+
+        // Check the svg
+        cy.xpath("(//*[name()='svg'])[6]")
         .should('exist')
-        .should('have.attr', 'width', '402')
-        .should('have.attr', 'height', '402')
-        .should('be.visible');
-        // Checking the contents of the svg image
-        cy.xpath("/html[1]/body[1]/main[1]/section[1]/div[2]/*[name()='svg'][1]")
-        .find('path').should('have.length.greaterThan', 100);
+        .should('be.visible')
+        .should('have.attr', ('width', 'height'))
+        .and("contain", 402)
     });
 
-    it('Testing the contact page form', () => {
-        // Name
-        cy.get("input[placeholder='Name']")
+    it.only('Testing the contact page form', () => {
+        // Check First Name
+        cy.get("#firstName")
+        .should('exist')
+        .should('have.attr', 'placeholder', 'First Name')
+        .type('Moses');
+        // Check Last Name
+        cy.get("#lastName")
+        .should('exist')
+        .should('have.attr', 'placeholder', 'Last Name')
+        .type('Aaron');
+        // Check company Email
+        cy.get("#email")
         .should('exist')
         .should('have.attr', 'placeholder', 'Name')
-        .type('Moses');
-        // Company Email
-        cy.get("input[placeholder='Company Email']")
-        .should('exist')
-        .should('have.attr', 'placeholder', 'Company Email')
         .type('Anchorsoftacademy@gmail.com');
-        // Company name
-        cy.get("input[placeholder='Company Name']")
+        // Check company number
+        cy.get("#mobile")
         .should('exist')
-        .should('have.attr', 'placeholder', 'Company Name')
-        .type('Anchorsoft Academy');
+        .should('have.attr', 'placeholder', 'Mobile No.')
+        .type('081293837465');
         // Project Description
-        cy.get("input[placeholder='Project Description']")
+        cy.get("#message")
         .should('exist')
-        .should('have.attr', 'placeholder', 'Project Description')
+        .should('have.attr', 'placeholder', 'Message')
         .type('We need an E-Commerce store for a clothing brand');
 
-        // Submit button
-        cy.xpath("//button[contains(@type,'button')]")
+        // Check submit button
+        cy.get("button[type='submit']")
         .should('exist')
-        .should('be.visible');
+        .should('be.visible')
+        .should('have.text', 'Submit');
+
+        // Submit
+        cy.get("button[type='submit']").click()
+        cy.wait(2000)
+
+        // Error Message
+        cy.get("div[role='alert']")
+        .should("be.visible")
     });
 });
