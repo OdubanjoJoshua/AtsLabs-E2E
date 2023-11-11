@@ -1,7 +1,7 @@
 describe('Testing the blog', () => {
     beforeEach(() => {
         cy.viewport(1440, 720);
-        cy.visit("/blog");
+        cy.visit('/blog');
     });
 
     it("Testing the heading and search bar", () => {
@@ -14,25 +14,115 @@ describe('Testing the blog', () => {
         cy.xpath("//input[@placeholder='Search']").type("best user design");
     });
 
-    it("Testing the blog section", () => {
+    it.only("Testing the blog section", () => {
         // Checking the number of post in the blog post grid
-        cy.xpath("//div[contains(@class,'grid lg:grid-cols-2 gap-10')]").children().should("have.length", 6);
-        // Check if image exists and is visible
-        cy.get("div:nth-child(2) div:nth-child(1) img:nth-child(1)").should("exist").should("be.visible");
-        // post category
-        cy.xpath("//div[contains(@class,'grid lg:grid-cols-2 gap-10')]//div[1]//div[2]//div[1]//div[1]").should("be.visible").should("have.text", "Design");
-        // checking the title of the first post
-        cy.xpath("//div//div[1]//div[2]//div[1]//p[1]").should("have.text", "7 Websites with the Best User Experience Design to Get Inspired From Added");
-        // checking the posted time 
-        cy.xpath("//body[1]/main[1]/section[2]/div[1]/div[1]/div[2]/span[1]").should("have.text", "Posted 13th Jul 2023");
-    });
+        cy.xpath("//div[contains(@class,'grid lg:grid-cols-2 gap-10')]").children().should("have.length", 12);
 
-    it("second section", () => {
-        // title
-        cy.get("body > main:nth-child(3) > section:nth-child(3) > h4:nth-child(1)").should("How may we serve you?");
-        cy.get("body > main:nth-child(3) > section:nth-child(3) > p:nth-child(2)").should("Leverage our world-class engineering teams to get your ideas and projects up and running quickly.");
-        cy.xpath('(//a[normalize-space()="Let\'s talk"])[1]').should("exist");
-        cy.xpath('(//a[normalize-space()="Let\'s talk"])[1]').should("be.visible");
-        cy.xpath('(//a[normalize-space()="Let\'s talk"])[1]').should("have.text", "Let's talk");
+        // Post 1
+        // Check if image exists and is visible
+        cy.xpath("(//img[contains(@alt,'blog')])[1]")
+        .should("exist")
+        .should("be.visible")
+        .should("have.attr", "src")
+        .and("contain", "/_next/image?url=http%3A%2F%2F165.22.122.189%2Fstatic%2Fuploads%2Fpostimages%2Fales-nesetril-Im7lZjxeLhg-unsplash.jpg&w=640&q=75")
+        // post category
+        cy.xpath("(//div[contains(text(),'Design')])[1]").should("be.visible")
+        .should("have.text", "Design");
+        // checking the title of the first post
+        cy.xpath("(//p[normalize-space()='The Journey Of a Design Guru'])[1]")
+        .should("have.text", "The Journey Of a Design Guru");
+        // checking the posted time 
+        cy.xpath("/html/body/main/section[2]//a[@href='/blog/1']//span[.='Posted Nov 7, 2023']")
+        .contains("2023");
+
+        // Post 2
+        // Check if image exists and is visible
+        cy.xpath("(//img[contains(@alt,'blog')])[2]")
+        .should("exist")
+        .should("be.visible")
+        .should("have.attr", "src")
+        .and("contain", "/_next/image?url=http%3A%2F%2F165.22.122.189%2Fstatic%2Fuploads%2Fpostimages%2Fales-nesetril-Im7lZjxeLhg-unsplash.jpg&w=640&q=75")
+        // post category
+        cy.xpath("(//div[contains(@class,'px-5 py-3 text-2xl rounded-full w-max undefined bg-primary text-white')][normalize-space()='Design'])[2]")
+        .should("be.visible")
+        .should("have.text", "Design");
+        // checking the title of the first post
+        cy.xpath("(//p[normalize-space()='The Journey Of a Graphics Designer'])[1]")
+        .should("have.text", "The Journey Of a Graphics Designer");
+        // checking the posted time 
+        cy.xpath("/html/body/main/section[2]//a[@href='/blog/2']//span[.='Posted Nov 7, 2023']")
+        .contains("2023");
+
+        // Post 3
+        // Check if image exists and is visible
+        cy.xpath("(//img[contains(@alt,'blog')])[3]")
+        .should("exist")
+        .should("be.visible")
+        .should("have.attr", "src")
+        .and("contain", "/_next/image?url=http%3A%2F%2F165.22.122.189%2Fstatic%2Fuploads%2Fpostimages%2Fales-nesetril-Im7lZjxeLhg-unsplash.jpg&w=640&q=75")
+        // post category
+        cy.xpath("(//div[@class='px-5 py-3 text-2xl rounded-full w-max undefined bg-primary text-white'][normalize-space()='Design'])[3]")
+        .should("be.visible")
+        .should("have.text", "Design");
+        // checking the title of the first post
+        cy.xpath("(//p[normalize-space()='The Journey Of Building an AI'])[1]")
+        .should("have.text", "The Journey Of Building an AI");
+        // checking the posted time 
+        cy.xpath("/html/body/main/section[2]//a[@href='/blog/2']//span[.='Posted Nov 7, 2023']")
+        .contains("2023");
+
+        // Post 4
+        // Check if image exists and is visible
+        cy.xpath("(//img[contains(@alt,'blog')])[4]")
+        .should("exist")
+        .should("be.visible")
+        .should("have.attr", "src")
+        .and("contain", "/_next/image?url=http%3A%2F%2F165.22.122.189%2Fstatic%2Fuploads%2Fpostimages%2Fales-nesetril-Im7lZjxeLhg-unsplash.jpg&w=640&q=75")
+        // post category
+        cy.xpath("(//div[@class='px-5 py-3 text-2xl rounded-full w-max undefined bg-primary text-white'][normalize-space()='Design'])[4]")
+        .should("be.visible")
+        .should("have.text", "Design");
+        // checking the title of the first post
+        cy.xpath("(//p[normalize-space()='Elon Musk has sold his shares in Open AI'])[1]")
+        .should("have.text", "Elon Musk has sold his shares in Open AI");
+        // checking the posted time 
+        cy.xpath("/html/body/main/section[2]//a[@href='/blog/2']//span[.='Posted Nov 7, 2023']")
+        .contains("2023");
+
+        // Post 5
+        // Check if image exists and is visible
+        cy.xpath("(//img[contains(@alt,'blog')])[5]")
+        .should("exist")
+        .should("be.visible")
+        .should("have.attr", "src")
+        .and("contain", "/_next/image?url=http%3A%2F%2F165.22.122.189%2Fstatic%2Fuploads%2Fpostimages%2Fales-nesetril-Im7lZjxeLhg-unsplash.jpg&w=640&q=75")
+        // post category
+        cy.xpath("(//div[@class='px-5 py-3 text-2xl rounded-full w-max undefined bg-primary text-white'][normalize-space()='Design'])[5]")
+        .should("be.visible")
+        .should("have.text", "Design");
+        // checking the title of the first post
+        cy.xpath("(//p[normalize-space()='The Journey of creating Fast API'])[1]")
+        .should("have.text", "The Journey of creating Fast API");
+        // checking the posted time 
+        cy.xpath("/html/body/main/section[2]//a[@href='/blog/2']//span[.='Posted Nov 7, 2023']")
+        .contains("2023");
+
+        // Post 6
+        // Check if image exists and is visible
+        cy.xpath("(//img[contains(@alt,'blog')])[6]")
+        .should("exist")
+        .should("be.visible")
+        .should("have.attr", "src")
+        .and("contain", "/_next/image?url=http%3A%2F%2F165.22.122.189%2Fstatic%2Fuploads%2Fpostimages%2Fales-nesetril-Im7lZjxeLhg-unsplash.jpg&w=640&q=75")
+        // post category
+        cy.xpath("(//div[contains(@class,'px-5 py-3 text-2xl rounded-full w-max undefined bg-primary text-white')][normalize-space()='Design'])[6]")
+        .should("be.visible")
+        .should("have.text", "Design");
+        // checking the title of the first post
+        cy.xpath("(//p[normalize-space()='The Journey of Building a Solid Backend'])[1]")
+        .should("have.text", "The Journey of Building a Solid Backend");
+        // checking the posted time 
+        cy.xpath("/html/body/main/section[2]//a[@href='/blog/2']//span[.='Posted Nov 7, 2023']")
+        .contains("2023");
     });
 });
